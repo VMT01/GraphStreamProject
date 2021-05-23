@@ -1,81 +1,48 @@
 package Algo;
 
-import GUI.Clicks;
-import org.graphstream.graph.Edge;
-import org.graphstream.graph.Node;
+import DataStructure.Node_Imp;
 
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.HashMap;
+import java.util.Map;
 
-import static GUI.Platform.*;
+import static GraphStream.MainGraph.implementedGraph;
 
 public class DFS {
-    private final String startNode;
-    private final String endNode;
-    private ArrayList<String> path = new ArrayList<>();
+    private final int startNode;
+    private final Map<Integer, ArrayList<Integer>> path = new HashMap<>();
 
-    public DFS(String s, String e) {
+    public DFS(int s) {
         this.startNode = s;
-        this.endNode = e;
+        init();
     }
 
-    public void init() {
-        System.out.println("DFS Algorithm Path: ");
-        boolean[] visited = new boolean[maxNode + 1];
-        graph.getNode(startNode).setAttribute("ui.class", "algo1");
-        DFSAlgo(startNode, endNode, visited);
-        resetDefault();
+    private void init() {
+        boolean[] visited = new boolean[implementedGraph.getNoVertices()];
+        try {
+            visited[startNode] = true;
+            path.put(startNode, new ArrayList<>());
+            DfsAlgo(startNode, visited);
+        } catch (ArrayIndexOutOfBoundsException | NullPointerException ignore) { }
     }
 
-    private void DFSAlgo(String startNode, String endNode, boolean[] visited) {
-        visited[Integer.parseInt(startNode)] = true;
-        path.add(startNode);
+    private void DfsAlgo(int startNode, boolean[] visited) {
+        Node_Imp _node = new Node_Imp(false);
+        _node.setID(startNode);
+        startNode = implementedGraph.getNodeIndex(_node);
 
-        if (startNode.equals(endNode)) {
-            reset();
-        } else {
-            for (Edge edge: graph.getNode(startNode).getEachLeavingEdge()) {
-                if (!visited[Integer.parseInt(edge.getNode1().getId())]) {
-                    DFSAlgo(edge.getNode1().getId(), endNode, visited);
-                }
+        for (int i = 0; i < implementedGraph.getNode(startNode).getNoChildren(); i++) {
+            int idd = implementedGraph.getNode(startNode).getChildrenByIndex(i).getChild().getID();
+            if (!visited[idd]) {
+                path.computeIfAbsent(startNode, k -> new ArrayList<>());
+                path.get(startNode).add(idd);
+                visited[idd] = true;
+                DfsAlgo(idd, visited);
             }
         }
-
-        path.remove(path.size() - 1);
-        visited[Integer.parseInt(startNode)] = false;
     }
 
-    private void reset() {
-        System.out.println(path);
-
-        graph.getNode(startNode).addAttribute("ui.class", "algo1");
-        for (int i = 1; i < path.size(); i++) {
-            sleep(200);
-            graph.getEdge(path.get(i - 1) + path.get(i)).addAttribute("ui.class", "algo1");
-            sleep(100);
-            graph.getNode(path.get(i)).addAttribute("ui.class", "algo2");
-        }
-        graph.getNode(endNode).addAttribute("ui.class", "algo1");
-        sleep(2000);
-
-        resetDefault();
-    }
-
-    private void resetDefault() {
-        for (Node node: graph) {
-            node.addAttribute("ui.class", "default");
-        }
-        for (Edge edge: graph.getEachEdge()) {
-            edge.addAttribute("ui.class", "default");
-        }
-    }
-
-    protected void sleep(int x) {
-        try {
-            Thread.sleep(x);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(Clicks.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    public Map<Integer, ArrayList<Integer>> getPath() {
+        return path;
     }
 }
