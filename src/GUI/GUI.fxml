@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.input.KeyCodeCombination?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<?import javafx.scene.control.ToggleButton?>
+<BorderPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1270.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="GUI.Controller">
+   <top>
+      <MenuBar fx:id="menuBar" prefHeight="30.0" prefWidth="1200.0" BorderPane.alignment="CENTER">
+         <Menu id="file" fx:id="file" mnemonicParsing="false" text="File">
+            <MenuItem id="newGraphMenuItem" fx:id="newGraphMenuItem" mnemonicParsing="false" onAction="#addPane"
+                      text="New Graph ">
+               <accelerator>
+                  <KeyCodeCombination alt="UP" code="N" control="ANY" meta="UP" shift="UP" shortcut="UP"/>
+               </accelerator>
+            </MenuItem>
+            <MenuItem id="openGraphMenuItem" fx:id="openGraphMenuItem" mnemonicParsing="false" onAction="#openPane"
+                      text="Open">
+               <accelerator>
+                  <KeyCodeCombination alt="UP" code="O" control="ANY" meta="UP" shift="UP" shortcut="UP"/>
+               </accelerator>
+            </MenuItem>
+            <MenuItem id="dfsMenuItem" fx:id="saveAsGraphMenuItem" mnemonicParsing="false" onAction="#saveAs"
+                      text="Save As">
+               <accelerator>
+                  <KeyCodeCombination alt="UP" code="F12" control="ANY" meta="UP" shift="UP" shortcut="UP"/>
+               </accelerator>
+            </MenuItem>
+            <MenuItem fx:id="saveGraphMenuItem" mnemonicParsing="false" onAction="#save" text="Save">
+               <accelerator>
+                  <KeyCodeCombination alt="UP" code="S" control="ANY" meta="UP" shift="UP" shortcut="UP"/>
+               </accelerator>
+            </MenuItem>
+            <MenuItem fx:id="exitProgramMenuItem" mnemonicParsing="false" onAction="#exitProgram" text="Exit"/>
+         </Menu>
+         <Menu id="edit" fx:id="edit" mnemonicParsing="false" text="Edit">
+            <MenuItem id="deleteGraphMenuItem" fx:id="deleteGraphMenuItem" mnemonicParsing="false"
+                      onAction="#deletePane" text="Delete Graph">
+               <accelerator>
+                  <KeyCodeCombination alt="UP" code="D" control="ANY" meta="UP" shift="UP" shortcut="UP"/>
+               </accelerator>
+            </MenuItem>
+            <MenuItem id="resetGraphMenuItem" fx:id="resetGraphMenuItem" mnemonicParsing="false"
+                      onAction="#resetPane" text="Reset Graph">
+               <accelerator>
+                  <KeyCodeCombination alt="UP" code="R" control="ANY" meta="UP" shift="UP" shortcut="UP"/>
+               </accelerator>
+            </MenuItem>
+            <MenuItem id="resetGraphMenuItem" fx:id="exitGraphMenuItem" mnemonicParsing="false" onAction="#exitPane"
+                      text="Exit Graph"/>
+         </Menu>
+         <Menu id="graphAnimation" fx:id="graphAnimation" mnemonicParsing="false" text="Graph Animation"/>
+         <Menu id="help" fx:id="help" mnemonicParsing="false" text="Help">
+            <accelerator>
+               <KeyCodeCombination alt="UP" code="H" control="ANY" meta="UP" shift="UP" shortcut="UP"/>
+            </accelerator>
+            <MenuItem id="aboutMenuItem" fx:id="aboutGraphMenuItem" mnemonicParsing="false" onAction="#aboutPane"
+                      text="About "/>
+         </Menu>
+      </MenuBar>
+   </top>
+   <center>
+      <VBox prefHeight="650.0" prefWidth="850.0" BorderPane.alignment="CENTER">
+         <BorderPane fx:id="displayGraph" prefHeight="470.0" prefWidth="850.0">
+            <VBox.margin>
+               <Insets right="5.0" top="6.0"/>
+            </VBox.margin>
+            <right>
+               <VBox alignment="TOP_CENTER" prefHeight="470.0" prefWidth="50.0" spacing="6.0"
+                     BorderPane.alignment="CENTER">
+                  <BorderPane.margin>
+                     <Insets right="5.0" top="6.0"/>
+                  </BorderPane.margin>
+                  <ToggleButton fx:id="lockGraphButton" mnemonicParsing="false" onAction="#lockGraph" prefHeight="40.0"
+                          prefWidth="40.0">
+                     <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                           <Image url="@../ImagePackage/unlockIcon.jpg"/>
+                        </ImageView>
+                     </graphic>
+                  </ToggleButton>
+                  <Button fx:id="addNodeButton" layoutX="15.0" layoutY="10.0" mnemonicParsing="false"
+                          onAction="#addNode" prefHeight="40.0" prefWidth="40.0">
+                     <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                           <Image url="@../ImagePackage/addIconButton.png"/>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="deleteNodeButton" layoutX="15.0" layoutY="50.0" mnemonicParsing="false"
+                          onAction="#deleteNode" prefHeight="40.0" prefWidth="40.0">
+                     <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                           <Image url="@../ImagePackage/subtractionIconButton.png"/>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="addEdgeButton" layoutX="15.0" layoutY="90.0" mnemonicParsing="false"
+                          onAction="#addEdge" prefHeight="40.0" prefWidth="40.0">
+                     <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                           <Image url="@../ImagePackage/addEdgeIcon.png"/>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="deleteEdgeButton" layoutX="15.0" layoutY="130.0" mnemonicParsing="false"
+                          onAction="#deleteEdge" prefHeight="40.0" prefWidth="40.0">
+                     <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                           <Image url="@../ImagePackage/deleteLineIcon.png"/>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="findNodeButton" layoutX="15.0" layoutY="170.0" mnemonicParsing="false"
+                          onAction="#findNode" prefHeight="40.0" prefWidth="40.0">
+                     <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                           <Image url="@../ImagePackage/findIcon.png"/>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+               </VBox>
+            </right>
+         </BorderPane>
+         <ListView fx:id="showLineListView" prefHeight="100.0" prefWidth="780.0">
+            <VBox.margin>
+               <Insets right="10.0" top="10.0"/>
+            </VBox.margin>
+         </ListView>
+         <HBox alignment="CENTER" prefHeight="61.0" prefWidth="850.0" spacing="30.0">
+            <Button id="showDFSButton" fx:id="showDFSButton" mnemonicParsing="false" onAction="#dfsPane"
+                    text="Show DFS">
+               <font>
+                  <Font size="14.0"/>
+               </font>
+            </Button>
+            <Button id="showBFSButton" fx:id="showBFSButton" mnemonicParsing="false" onAction="#bfsPane"
+                    text="ShowBFS">
+               <font>
+                  <Font size="14.0"/>
+               </font>
+            </Button>
+            <Button id="showLIneButton" fx:id="showLineButton" mnemonicParsing="false" onAction="#showLinePane"
+                    text="Show The Line">
+               <font>
+                  <Font size="14.0"/>
+               </font>
+            </Button>
+            <Button fx:id="screenShotButton" mnemonicParsing="false" onAction="#screenShot" text="Screen Shot">
+               <font>
+                  <Font size="14.0"/>
+               </font>
+            </Button>
+         </HBox>
+      </VBox>
+   </center>
+   <left>
+      <BorderPane fx:id="leftRoot" prefHeight="650.0" prefWidth="400.0" BorderPane.alignment="CENTER">
+         <center>
+            <VBox prefHeight="650.0" prefWidth="400.0" BorderPane.alignment="CENTER">
+               <TextArea fx:id="graphNodeTextArea" editable="false" prefHeight="380.0" prefWidth="380.0"
+                         promptText="Input new Graph nodes here &lt;3" scrollLeft="20.0" scrollTop="20.0">
+                  <VBox.margin>
+                     <Insets bottom="10.0" left="10.0" right="10.0" top="6.0"/>
+                  </VBox.margin>
+                  <font>
+                     <Font size="14.0"/>
+                  </font>
+               </TextArea>
+               <HBox alignment="CENTER" prefHeight="40.0" prefWidth="360.0" spacing="50.0">
+                  <Button fx:id="drawGraphButton" mnemonicParsing="false" onAction="#drawGraph" text="Draw Graph ">
+                     <font>
+                        <Font size="14.0"/>
+                     </font>
+                  </Button>
+                  <Button fx:id="repairGraphButton" mnemonicParsing="false" onAction="#repairGraph"
+                          text="Repair Graph">
+                     <font>
+                        <Font size="14.0"/>
+                     </font>
+                  </Button>
+               </HBox>
+            </VBox>
+         </center>
+         <top>
+            <BorderPane fx:id="topLeftRootPane" prefHeight="200.0" prefWidth="400.0" BorderPane.alignment="CENTER">
+               <center>
+                  <VBox prefHeight="190.0" prefWidth="400.0" BorderPane.alignment="CENTER">
+                     <Label fx:id="inputLabel" prefHeight="80.0" prefWidth="400.0">
+                        <font>
+                           <Font size="14.0"/>
+                        </font>
+                     </Label>
+                     <HBox fx:id="inputNodeHBox" alignment="CENTER" prefHeight="60.0" prefWidth="400.0" spacing="10.0"/>
+                     <HBox alignment="BOTTOM_CENTER" prefHeight="60.0" prefWidth="400.0">
+                        <VBox.margin>
+                           <Insets/>
+                        </VBox.margin>
+                        <Label prefHeight="35.0" prefWidth="400.0" text="   Graph Nodes : ">
+                           <font>
+                              <Font size="14.0"/>
+                           </font>
+                        </Label>
+                     </HBox>
+                  </VBox>
+               </center>
+            </BorderPane>
+         </top>
+      </BorderPane>
+   </left>
+</BorderPane>

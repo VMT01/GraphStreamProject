@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<BorderPane fx:id="aboutPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="GUI.aboutController">
+    <center>
+        <HBox prefHeight="650.0" prefWidth="1200.0" BorderPane.alignment="CENTER">
+            <children>
+                <VBox prefHeight="650.0" prefWidth="200.0">
+                    <opaqueInsets>
+                        <Insets />
+                    </opaqueInsets>
+                    <children>
+                        <Button mnemonicParsing="false" prefHeight="200.0" prefWidth="200.0" text="Members">
+                            <font>
+                                <Font name="System Bold" size="18.0" />
+                            </font>
+                        </Button>
+                        <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="150.0" prefWidth="200.0" text="Project">
+                            <font>
+                                <Font name="System Bold" size="18.0" />
+                            </font>
+                        </Button>
+                        <Button layoutX="10.0" layoutY="210.0" mnemonicParsing="false" prefHeight="150.0" prefWidth="200.0" text="Lecturer">
+                            <font>
+                                <Font name="System Bold" size="18.0" />
+                            </font>
+                        </Button>
+                        <Button layoutX="10.0" layoutY="360.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" text="Complete Date">
+                            <font>
+                                <Font name="System Bold" size="18.0" />
+                            </font>
+                        </Button>
+                        <Button layoutX="10.0" layoutY="511.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" text="Version">
+                            <font>
+                                <Font name="System Bold" size="18.0" />
+                            </font>
+                        </Button>
+                    </children>
+                </VBox>
+                <VBox prefHeight="650.0" prefWidth="1000.0">
+                    <children>
+                        <TextArea cacheShape="false" centerShape="false" editable="false" focusTraversable="false" prefHeight="200.0" prefWidth="650.0" scaleShape="false" text="&#10;6 member :&#10;- Nguyễn Long Phú&#10;- Vũ Minh Thanh &#10;- Tạ Đức Trung&#10;- Đầu Khắc Tú&#10;- Nguyễn Ngọc Tú &#10;- Nguyễn Hữu Tuấn ">
+                            <font>
+                                <Font size="14.0" />
+                            </font>
+                            <cursor>
+                                <Cursor fx:constant="DEFAULT" />
+                            </cursor>
+                        </TextArea>
+                        <TextArea editable="false" layoutX="10.0" layoutY="10.0" prefHeight="150.0" prefWidth="650.0" text="&#10;This project is one OOP Project that draw Graph, show this BFS, DFS and show every path from one node to other node in that Graph when we input one file &#10;describe it.&#10;Our team decided to upgrade this project to one program that can interact with Graph and file input. &#10;We can input file from list file, open file, delete file and so on. We can not only draw Graph from that file but also from text that we input. Graph is made to be &#10;could interact with and can be painted, can be given some animation. ">
+                            <font>
+                                <Font size="14.0" />
+                            </font>
+                        </TextArea>
+                        <TextArea editable="false" layoutX="10.0" layoutY="254.0" prefHeight="150.0" prefWidth="650.0" text="Thanks to my lecturer-Tran Nhat Hoa who gave this project and guided our team to comlete it.&#10;Thanks to our classmates who help our team with their informations about algorithm and GUI : Peach&#10;An , Kien Dao, .....&#10;We need to search information in Google, so thanks Google too!">
+                            <font>
+                                <Font size="14.0" />
+                            </font>
+                        </TextArea>
+                        <TextArea editable="false" layoutX="10.0" layoutY="498.0" prefHeight="50.0" prefWidth="650.0" />
+                        <TextArea editable="false" layoutX="10.0" layoutY="511.0" prefHeight="50.0" prefWidth="650.0" />
+                        <HBox alignment="CENTER_RIGHT" prefHeight="50.0" prefWidth="650.0">
+                            <children>
+                                <Button fx:id="closeAboutButton" mnemonicParsing="false" onAction="#closeAbout" prefHeight="26.0" prefWidth="71.0" text="Close">
+                                    <font>
+                                        <Font size="14.0" />
+                                    </font>
+                                    <HBox.margin>
+                                        <Insets right="30.0" />
+                                    </HBox.margin>
+                                </Button>
+                            </children>
+                        </HBox>
+                    </children>
+                </VBox>
+            </children>
+        </HBox>
+    </center>
+    <top>
+        <Label alignment="CENTER" prefHeight="30.0" prefWidth="1200.0" style="-fx-background-color: rgb(255,235,205);" text="Informations" BorderPane.alignment="CENTER">
+            <font>
+                <Font name="System Bold" size="18.0" />
+            </font>
+        </Label>
+    </top>
+</BorderPane>
