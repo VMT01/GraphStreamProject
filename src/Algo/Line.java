@@ -20,8 +20,8 @@ public class Line {
     }
 
     private void init() {
-        boolean[] visited = new boolean[implementedGraph.getNoVertices()];
-        path = new Integer[implementedGraph.getNoVertices()];
+        boolean[] visited = new boolean[implementedGraph.getNoVertices() + 2];
+        path = new Integer[implementedGraph.getNoVertices() + 2];
         Arrays.fill(path, -1);
         try {
             lineAlgo(start, 0, visited);
