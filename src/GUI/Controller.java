@@ -643,12 +643,11 @@ public class Controller implements Initializable {
         graph.addNode(x);
         graph.getNode(x).setAttribute("ui.label", x);
 
-        graphNodeTextArea.setText(graphNodeTextArea.getText() + "\n" + x);
-
         Node_Imp _node = new Node_Imp(true);
         _node.setID(lastId);
         implementedGraph.addNode(_node);
 
+        updateTextField();
         modified = true;
     }
 
@@ -942,14 +941,16 @@ public class Controller implements Initializable {
                 flag = i;
             }
         }
-
+        if (cnt > 0) {
+            check.add(new Pair<>(flag, cnt));
+        }
         graphNodeTextArea.setText(buildString(check));
     }
 
     private String buildString(ArrayList<Pair<Integer, Integer>> check) {
         StringBuilder stringBuilder = new StringBuilder();
-
-        for (Node_Imp _node: implementedGraph.getVertices()) {
+        for (int i = 0; i < implementedGraph.getNoVertices() - 1; i++) {
+            Node_Imp _node = implementedGraph.getNode(i);
             stringBuilder.append(optimize(_node.getID(), check) + 1);
             ArrayList<Integer> nodes = new ArrayList<>();
             for (Edge_Imp _edge: _node.getChildren()) {
@@ -961,6 +962,17 @@ public class Controller implements Initializable {
             }
             stringBuilder.append("\n");
         }
+        Node_Imp _node = implementedGraph.getNode(implementedGraph.getNoVertices() - 1);
+        stringBuilder.append(optimize(_node.getID(), check) + 1);
+        ArrayList<Integer> nodes = new ArrayList<>();
+        for (Edge_Imp _edge: _node.getChildren()) {
+            nodes.add(_edge.getChild().getID());
+        }
+        Collections.sort(nodes);
+        for (Integer x: nodes) {
+            stringBuilder.append(" ").append(optimize(x, check) + 1);
+        }
+
         return stringBuilder.toString();
     }
 
