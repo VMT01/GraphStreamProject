@@ -1,0 +1,194 @@
+node {
+    shape: circle;
+    fill-color: yellow, orange;
+    fill-mode: gradient-vertical;
+    size-mode: dyn-size;
+    size: 35px;
+    text-alignment: center;
+    text-size: 17px;
+    text-mode: normal;
+    text-color: #2b1c1a;
+}
+
+node.defaultAlgo1 {
+    shape: circle;
+    fill-color: #FE4D00;
+    size: 35px;
+    text-alignment: center;
+    text-size: 17px;
+    size-mode: dyn-size;
+    fill-mode: dyn-plain;
+    text-mode: normal;
+    text-color: #2b1c1a;
+}
+
+node.defaultAlgo2 {
+    shape: circle;
+    fill-color: yellow, orange;
+    fill-mode: gradient-vertical;
+    size: 35px;
+    text-alignment: center;
+    text-size: 17px;
+    size-mode: dyn-size;
+    text-mode: normal;
+    text-color: #2b1c1a;
+}
+
+node.defaultAlgo3 {
+    shape: circle;
+    fill-color: #696969;
+    size: 8px;
+    text-size: 0px;
+    size-mode: dyn-size;
+    fill-mode: dyn-plain;
+    text-mode: normal;
+    text-color: #ffffff;
+}
+
+edge {
+    shape: line;
+    fill-color: black;
+}
+
+edge.defaultAlgo1 {
+    fill-color: #ECC181;
+    size: 5px;
+    arrow-size: 10px;
+}
+
+edge.defaultAlgo2 {
+    fill-color: #d3d3d3;
+}
+
+node.Node1 {
+    shape: cross;
+    fill-color: yellow, orange;
+    fill-mode: gradient-vertical;
+    size-mode: dyn-size;
+    size: 35px;
+    text-alignment: above;
+    text-size: 17px;
+    text-mode: normal;
+    text-color: #2b1c1a;
+    text-background-mode: plain;
+    text-background-color: white;
+}
+
+node.Node1Algo1 {
+    shape: cross;
+    fill-color: #FE4D00;
+    size-mode: dyn-size;
+    size: 35px;
+    text-alignment: above;
+    text-size: 17px;
+    text-mode: normal;
+    text-color: #2b1c1a;
+    text-background-mode: plain;
+    text-background-color: white;
+}
+
+node.Node1Algo2 {
+    shape: cross;
+    fill-color: yellow, orange;
+    fill-mode: gradient-vertical;
+    size: 35px;
+    size-mode: dyn-size;
+    text-alignment: above;
+    text-size: 17px;
+    text-mode: normal;
+    text-color: #2b1c1a;
+    text-background-mode: plain;
+    text-background-color: white;
+}
+
+node.Node1Algo3 {
+    shape: cross;
+    fill-color: #696969;
+    size: 8px;
+    text-size: 0px;
+    size-mode: dyn-size;
+    fill-mode: dyn-plain;
+    text-mode: normal;
+    text-color: #ffffff;
+}
+
+edge.Edge1 {
+    shape: cubic-curve;
+    fill-color: black;
+}
+
+edge.Edge1Algo1 {
+    shape: cubic-curve;
+    fill-color: #ECC181;
+    size: 5px;
+    arrow-size: 10px;
+}
+
+edge.Edge1Algo2 {
+    shape: cubic-curve;
+    fill-color: #d3d3d3;
+}
+
+node.Node2 {
+    size: 35px;
+    fill-mode: image-scaled;
+    fill-image: url('src/ImagePackage/house.png');
+    text-alignment: above;
+    text-size: 17px;
+    text-mode: normal;
+    text-color: #2b1c1a;
+    text-background-mode: plain;
+    text-background-color: white;
+}
+
+node.Node2Algo1 {
+    size: 35px;
+    fill-mode: image-scaled;
+    fill-image: url('src/ImagePackage/house.png');
+    text-alignment: above;
+    text-size: 17px;
+    text-mode: normal;
+    text-color: #2b1c1a;
+    text-background-mode: plain;
+    text-background-color: white;
+}
+
+node.Node2Algo2 {
+    size: 35px;
+    fill-mode: image-scaled;
+    fill-image: url('src/ImagePackage/house.png');
+    text-alignment: above;
+    text-size: 17px;
+    text-mode: normal;
+    text-color: #2b1c1a;
+    text-background-mode: plain;
+    text-background-color: white;
+}
+
+node.Node2Algo3 {
+    shape: circle;
+    fill-color: #696969;
+    size: 8px;
+    text-size: 0px;
+    size-mode: dyn-size;
+    fill-mode: dyn-plain;
+    text-mode: normal;
+    text-color: #ffffff;
+}
+
+edge.Edge2 {
+    shape: blob;
+    fill-color: #92F, #C2D, #74F;
+    fill-mode: gradient-horizontal;
+
+}
+
+edge.Edge2Algo1 {
+    shape: blob;
+    fill-color: yellow, orange;
+    fill-mode: gradient-vertical;
+}
+edge.Edge2Algo2 {
+    shape: blob;
+    fill-color: #d3d3d3;
+}

@@ -9,6 +9,8 @@ import org.graphstream.graph.implementations.MultiGraph;
 import org.graphstream.ui.fx_viewer.FxViewer;
 import org.graphstream.ui.view.Viewer;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class MainGraph {
@@ -20,14 +22,7 @@ public class MainGraph {
 
     ArrayList<String[]> graphText = new ArrayList<>();
 
-    String graphNodeTextArea;
-    String attr =   "node { shape: circle; fill-color: yellow; size: 35px; text-alignment: center; text-size: 17px; size-mode: dyn-size; fill-mode: dyn-plain; text-mode: normal; text-color: #2b1c1a; }" +           // default node
-                    "edge { fill-color: black; }" +                                                                                                                                                                   // default edge
-                    "node.algo1 { shape: circle; fill-color: #FE4D00; size: 35px; text-alignment: center; text-size: 17px; size-mode: dyn-size; fill-mode: dyn-plain; text-mode: normal; text-color: #2b1c1a; }" +    // start & end
-                    "node.algo2 { shape: circle; fill-color: #FA9200; size: 35px; text-alignment: center; text-size: 17px; size-mode: dyn-size; fill-mode: dyn-plain; text-mode: normal; text-color: #2b1c1a; }" +    // on the way
-                    "node.algo3 { shape: circle; fill-color: #696969; size: 8px; text-size: 0px; size-mode: dyn-size; fill-mode: dyn-plain; text-mode: normal; text-color: #ffffff; }" +                              // not on the way
-                    "edge.algo1 { fill-color: #ECC181; size: 5px; arrow-size: 10px; }" +                                                                                                                              // way
-                    "edge.algo2 { fill-color: #d3d3d3; }";                                                                                                                                                            // not the way
+    String graphNodeTextArea;                                                                                                                                                         // not the way
 
     public MainGraph (String graphNodeTextArea) {
         this.graphNodeTextArea = graphNodeTextArea;
@@ -71,6 +66,6 @@ public class MainGraph {
         graph.setStrict(false);
         graph.setAttribute("ui.quality");
         graph.setAttribute("ui.antialias");
-        graph.setAttribute("ui.stylesheet", attr);
+        graph.setAttribute("ui.stylesheet", "url(src/GraphStream/stylesheet.txt)");
     }
 }
