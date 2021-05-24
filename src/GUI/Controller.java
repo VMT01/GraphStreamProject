@@ -226,6 +226,9 @@ public class Controller implements Initializable {
                 }
             }
             eventStage.close();
+            displayGraph.setVisible(false);
+            graphNodeTextArea.setText("");
+
             showLineListView.getItems().clear();
             DFSFirstNode = 0;
             BFSFirstNode = 0;
@@ -280,6 +283,8 @@ public class Controller implements Initializable {
     @FXML private void resetPane() {
         eventDialog("Reset");
         yesButton.setOnAction(event -> {
+            drawGraph();
+
             showLineListView.getItems().clear();
             DFSFirstNode = 0;
             BFSFirstNode = 0;
@@ -308,6 +313,7 @@ public class Controller implements Initializable {
             BFSFirstNode = 0;
             lineFirstNode = 0;
             lineLastNode = 0;
+            displayGraph.setVisible(false);
 
             inputLabel.setText("        Graph has been exited!");
             firstLabel.setVisible(true);
