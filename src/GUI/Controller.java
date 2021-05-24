@@ -4,11 +4,9 @@ import Algo.BFS;
 import Algo.DFS;
 import Algo.Line;
 import Algo.Path;
-
 import DataStructure.Edge_Imp;
 import DataStructure.Node_Imp;
 import GraphStream.MainGraph;
-
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -28,8 +26,6 @@ import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-
-import javafx.util.Pair;
 import org.graphstream.graph.Edge;
 import org.graphstream.ui.fx_viewer.FxViewPanel;
 import org.graphstream.ui.javafx.FxGraphRenderer;
@@ -923,65 +919,31 @@ public class Controller implements Initializable {
     }
 
     private void updateTextField() {
-        boolean[] isNode = new boolean[lastId + 2];
-        for (Node_Imp _node: implementedGraph.getVertices()) {
-            isNode[_node.getID()] = true;
-        }
-
-        int flag = 0;
-        int cnt = 0;
-        ArrayList<Pair<Integer, Integer>> check = new ArrayList<>();
-        for (int i = 0; i < isNode.length - 1; i++) {
-            if (!isNode[i]) {
-                cnt++;
-                if (isNode[i + 1]) {
-                    check.add(new Pair<>(flag, cnt));
-                }
-            } else if (!isNode[i + 1]) {
-                flag = i;
-            }
-        }
-        if (cnt > 0) {
-            check.add(new Pair<>(flag, cnt));
-        }
-        graphNodeTextArea.setText(buildString(check));
-    }
-
-    private String buildString(ArrayList<Pair<Integer, Integer>> check) {
         StringBuilder stringBuilder = new StringBuilder();
         for (int i = 0; i < implementedGraph.getNoVertices() - 1; i++) {
             Node_Imp _node = implementedGraph.getNode(i);
-            stringBuilder.append(optimize(_node.getID(), check) + 1);
+            stringBuilder.append(_node.getID() + 1);
             ArrayList<Integer> nodes = new ArrayList<>();
             for (Edge_Imp _edge: _node.getChildren()) {
                 nodes.add(_edge.getChild().getID());
             }
             Collections.sort(nodes);
             for (Integer x: nodes) {
-                stringBuilder.append(" ").append(optimize(x, check) + 1);
+                stringBuilder.append(" ").append(x + 1);
             }
             stringBuilder.append("\n");
         }
         Node_Imp _node = implementedGraph.getNode(implementedGraph.getNoVertices() - 1);
-        stringBuilder.append(optimize(_node.getID(), check) + 1);
+        stringBuilder.append(_node.getID() + 1);
         ArrayList<Integer> nodes = new ArrayList<>();
         for (Edge_Imp _edge: _node.getChildren()) {
             nodes.add(_edge.getChild().getID());
         }
         Collections.sort(nodes);
         for (Integer x: nodes) {
-            stringBuilder.append(" ").append(optimize(x, check) + 1);
+            stringBuilder.append(" ").append(x + 1);
         }
-
-        return stringBuilder.toString();
-    }
-
-    private int optimize(int x, ArrayList<Pair<Integer, Integer>> check) {
-        for (int i = check.size() - 1; i >= 0; i--)
-            if (x > check.get(i).getKey()) {
-                return x - check.get(i).getValue();
-            }
-        return x;
+        graphNodeTextArea.setText(stringBuilder.toString());
     }
 
     private void warningDialog (String s) {
