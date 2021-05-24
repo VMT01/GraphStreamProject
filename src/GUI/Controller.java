@@ -62,6 +62,10 @@ public class Controller implements Initializable {
     boolean drawGraph = false;
     boolean modified = false;
 
+    @FXML
+    int nodeStyle = 0;
+    int edgeStyle = 0;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         mode = "none";
@@ -127,6 +131,8 @@ public class Controller implements Initializable {
     @FXML Menu file = new Menu();
     @FXML Menu edit = new Menu();
     @FXML Menu graphAnimation = new Menu();
+    @FXML Menu chooseNodeStyle = new Menu();
+    @FXML Menu chooseEdgeStyle = new Menu();
     @FXML Menu help = new Menu();
     @FXML MenuItem newGraphMenuItem = new MenuItem();
     @FXML MenuItem openGraphMenuItem = new MenuItem();
@@ -137,6 +143,13 @@ public class Controller implements Initializable {
     @FXML MenuItem deleteGraphMenuItem = new MenuItem();
     @FXML MenuItem resetGraphMenuItem = new MenuItem();
     @FXML MenuItem aboutGraphMenuItem = new MenuItem();
+    @FXML MenuItem defaultStylesheet = new MenuItem();
+    @FXML MenuItem node0 = new MenuItem();
+    @FXML MenuItem node1 = new MenuItem();
+    @FXML MenuItem node2 = new MenuItem();
+    @FXML MenuItem edge0 = new MenuItem();
+    @FXML MenuItem edge1 = new MenuItem();
+    @FXML MenuItem edge2 = new MenuItem();
     @FXML Label inputLabel = new Label();
     @FXML HBox inputNodeHBox = new HBox();
     @FXML Button drawGraphButton = new Button();
@@ -340,6 +353,71 @@ public class Controller implements Initializable {
         noButton.setOnAction(event -> eventStage.close());
     }
 
+    @FXML public void setDefaultStyleSheet() {
+        if (!drawGraph) {
+            warningDialog("You must Draw Graph first!");
+            return;
+        }
+        graph.edges().forEach(e -> e.setAttribute("ui.class", "default"));
+        graph.nodes().forEach(e -> e.setAttribute("ui.class", "default"));
+        nodeStyle = 0;
+        edgeStyle = 0;
+    }
+
+    @FXML public void setNode0() {
+        if (!drawGraph) {
+            warningDialog("You must Draw Graph first!");
+            return;
+        }
+        graph.nodes().forEach(e -> e.setAttribute("ui.class", "default"));
+        nodeStyle = 0;
+    }
+
+    @FXML public void setNode1() {
+        if (!drawGraph) {
+            warningDialog("You must Draw Graph first!");
+            return;
+        }
+        graph.nodes().forEach(e -> e.setAttribute("ui.class", "Node1"));
+        nodeStyle = 1;
+    }
+
+    @FXML public void setNode2() {
+        if (!drawGraph) {
+            warningDialog("You must Draw Graph first!");
+            return;
+        }
+        graph.nodes().forEach(e -> e.setAttribute("ui.class", "Node2"));
+        nodeStyle = 2;
+    }
+
+    @FXML public void setEdge0() {
+        if (!drawGraph) {
+            warningDialog("You must Draw Graph first!");
+            return;
+        }
+        graph.edges().forEach(e -> e.setAttribute("ui.class", "default"));
+        edgeStyle = 0;
+    }
+
+    @FXML public void setEdge1() {
+        if (!drawGraph) {
+            warningDialog("You must Draw Graph first!");
+            return;
+        }
+        graph.edges().forEach(e -> e.setAttribute("ui.class", "Edge1"));
+        edgeStyle = 1;
+    }
+
+    @FXML public void setEdge2() {
+        if (!drawGraph) {
+            warningDialog("You must Draw Graph first!");
+            return;
+        }
+        graph.edges().forEach(e -> e.setAttribute("ui.class", "Edge2"));
+        edgeStyle = 2;
+    }
+
     @FXML private void aboutPane() throws IOException {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("aboutPane.fxml")));
         Scene scene = new Scene(root);
@@ -360,8 +438,8 @@ public class Controller implements Initializable {
             return;
         }
 
-        graph.edges().forEach(e -> e.setAttribute("ui.class", "default"));
-        graph.nodes().forEach(e -> e.setAttribute("ui.class", "default"));
+        resetGraph();
+
         showLineListView.getItems().clear();
 
         inputLabel.setText("   Input the first node in Depth First Search algorithm here :");
@@ -382,13 +460,21 @@ public class Controller implements Initializable {
             lineFirstNodeTF.setEditable(false);
             DFS dfs = new DFS(DFSFirstNode - 1);
             Map<Integer, ArrayList<Integer>> ctPath = dfs.getPath();
-            graph.nodes().forEach(e -> e.setAttribute("ui.class", "algo3"));
-            graph.edges().forEach(e -> e.setAttribute("ui.class", "algo2"));
+            switch (nodeStyle) {
+                case 0 -> graph.nodes().forEach(e -> e.setAttribute("ui.class", "defaultAlgo3"));
+                case 1 -> graph.nodes().forEach(e -> e.setAttribute("ui.class", "Node1Algo3"));
+                case 2 -> graph.nodes().forEach(e -> e.setAttribute("ui.class", "Node2Algo3"));
+            }
+            switch (edgeStyle) {
+                case 0 -> graph.edges().forEach(e -> e.setAttribute("ui.class", "defaultAlgo2"));
+                case 1 -> graph.edges().forEach(e -> e.setAttribute("ui.class", "Edge1Algo2"));
+                case 2 -> graph.edges().forEach(e -> e.setAttribute("ui.class", "Edge2Algo2"));
+            }
+
             renderPathDFS(DFSFirstNode - 1, ctPath);
         });
         resetNodeButton.setOnAction(event -> {
-            graph.edges().forEach(e -> e.setAttribute("ui.class", "default"));
-            graph.nodes().forEach(e -> e.setAttribute("ui.class", "default"));
+            resetGraph();
             lineFirstNodeTF.setEditable(true);
         });
     }
@@ -404,8 +490,8 @@ public class Controller implements Initializable {
             return;
         }
 
-        graph.edges().forEach(e -> e.setAttribute("ui.class", "default"));
-        graph.nodes().forEach(e -> e.setAttribute("ui.class", "default"));
+        resetGraph();
+
         showLineListView.getItems().clear();
 
         inputLabel.setText("   Input the first node in Breadth First Search algorithm here :");
@@ -425,13 +511,20 @@ public class Controller implements Initializable {
             lineFirstNodeTF.setEditable(false);
             BFS bfs = new BFS(BFSFirstNode - 1);
             Map<Integer, ArrayList<Integer>> ctPath = bfs.getPath();
-            graph.nodes().forEach(e -> e.setAttribute("ui.class", "algo3"));
-            graph.edges().forEach(e -> e.setAttribute("ui.class", "algo2"));
+            switch (nodeStyle) {
+                case 0 -> graph.nodes().forEach(e -> e.setAttribute("ui.class", "defaultAlgo3"));
+                case 1 -> graph.nodes().forEach(e -> e.setAttribute("ui.class", "Node1Algo3"));
+                case 2 -> graph.nodes().forEach(e -> e.setAttribute("ui.class", "Node2Algo3"));
+            }
+            switch (edgeStyle) {
+                case 0 -> graph.edges().forEach(e -> e.setAttribute("ui.class", "defaultAlgo2"));
+                case 1 -> graph.edges().forEach(e -> e.setAttribute("ui.class", "Edge1Algo2"));
+                case 2 -> graph.edges().forEach(e -> e.setAttribute("ui.class", "Edge2Algo2"));
+            }
             renderPathBFS(ctPath);
         });
         resetNodeButton.setOnAction(event -> {
-            graph.edges().forEach(e -> e.setAttribute("ui.class", "default"));
-            graph.nodes().forEach(e -> e.setAttribute("ui.class", "default"));
+            resetGraph();
             lineFirstNodeTF.setEditable(true);
         });
     }
@@ -447,8 +540,7 @@ public class Controller implements Initializable {
             return;
         }
 
-        graph.edges().forEach(e -> e.setAttribute("ui.class", "default"));
-        graph.nodes().forEach(e -> e.setAttribute("ui.class", "default"));
+        resetGraph();
 
         inputLabel.setText("   Input the first node and last node in the path here :");
         inputLabel.setVisible(true);
@@ -480,8 +572,7 @@ public class Controller implements Initializable {
         resetNodeButton.setOnAction(event -> {
             lineFirstNodeTF.setEditable(true);
             lineLastNodeTF.setEditable(true);
-            graph.edges().forEach(e -> e.setAttribute("ui.class", "default"));
-            graph.nodes().forEach(e -> e.setAttribute("ui.class", "default"));
+            resetGraph();
             showLineListView.getItems().clear();
         });
     }
@@ -492,6 +583,7 @@ public class Controller implements Initializable {
             return;
         }
 
+        displayGraph.setVisible(true);
         drawGraph = true;
         modified = false;
         showLineListView.getItems().clear();
@@ -625,8 +717,7 @@ public class Controller implements Initializable {
     }
 
     @FXML public void addNode() {
-        graph.nodes().forEach(e -> e.setAttribute("ui.class", "default"));
-        graph.edges().forEach(e -> e.setAttribute("ui.class", "default"));
+        resetGraph();
         showLineListView.getItems().clear();
         inputLabel.setVisible(false);
         firstLabel.setVisible(false);
@@ -654,8 +745,7 @@ public class Controller implements Initializable {
     }
 
     @FXML public void deleteNode() {
-        graph.nodes().forEach(e -> e.setAttribute("ui.class", "default"));
-        graph.edges().forEach(e -> e.setAttribute("ui.class", "default"));
+        resetGraph();
         showLineListView.getItems().clear();
         inputLabel.setVisible(false);
         firstLabel.setVisible(false);
@@ -732,8 +822,7 @@ public class Controller implements Initializable {
     }
 
     @FXML public void addEdge() {
-        graph.nodes().forEach(e -> e.setAttribute("ui.class", "default"));
-        graph.edges().forEach(e -> e.setAttribute("ui.class", "default"));
+        resetGraph();
         showLineListView.getItems().clear();
         inputLabel.setVisible(false);
         firstLabel.setVisible(false);
@@ -799,8 +888,7 @@ public class Controller implements Initializable {
     }
 
     @FXML public void deleteEdge() {
-        graph.nodes().forEach(e -> e.setAttribute("ui.class", "default"));
-        graph.edges().forEach(e -> e.setAttribute("ui.class", "default"));
+        resetGraph();
         showLineListView.getItems().clear();
         inputLabel.setVisible(false);
         firstLabel.setVisible(false);
@@ -866,8 +954,7 @@ public class Controller implements Initializable {
     }
 
     @FXML public void findNode() {
-        graph.nodes().forEach(e -> e.setAttribute("ui.class", "default"));
-        graph.edges().forEach(e -> e.setAttribute("ui.class", "default"));
+        resetGraph();
         showLineListView.getItems().clear();
         inputLabel.setVisible(false);
         firstLabel.setVisible(false);
@@ -915,7 +1002,11 @@ public class Controller implements Initializable {
         findButton.setOnAction(e -> {
             String input = findTextField.getText();
             if (input != null && graph.getNode(input) != null) {
-                graph.getNode(input).setAttribute("ui.class", "algo2");
+                switch (nodeStyle) {
+                    case 0 -> graph.getNode(input).setAttribute("ui.class", "defaultAlgo2");
+                    case 1 -> graph.getNode(input).setAttribute("ui.class", "Node1Algo2");
+                    case 2 -> graph.getNode(input).setAttribute("ui.class", "Node2Algo2");
+                }
                 eventStage.close();
             } else {
                 eventStage.close();
@@ -926,7 +1017,7 @@ public class Controller implements Initializable {
 
     private void updateTextField() {
         StringBuilder stringBuilder = new StringBuilder();
-        for (int i = 0; i < implementedGraph.getNoVertices() - 1; i++) {
+        for (int i = 0; i < implementedGraph.getNoVertices(); i++) {
             Node_Imp _node = implementedGraph.getNode(i);
             stringBuilder.append(_node.getID() + 1);
             ArrayList<Integer> nodes = new ArrayList<>();
@@ -939,17 +1030,7 @@ public class Controller implements Initializable {
             }
             stringBuilder.append("\n");
         }
-        Node_Imp _node = implementedGraph.getNode(implementedGraph.getNoVertices() - 1);
-        stringBuilder.append(_node.getID() + 1);
-        ArrayList<Integer> nodes = new ArrayList<>();
-        for (Edge_Imp _edge: _node.getChildren()) {
-            nodes.add(_edge.getChild().getID());
-        }
-        Collections.sort(nodes);
-        for (Integer x: nodes) {
-            stringBuilder.append(" ").append(x + 1);
-        }
-        graphNodeTextArea.setText(stringBuilder.toString());
+        graphNodeTextArea.setText(stringBuilder.toString().trim());
     }
 
     private void warningDialog (String s) {
@@ -981,43 +1062,109 @@ public class Controller implements Initializable {
     }
 
     private void renderPathDFS(int startNode, Map<Integer, ArrayList<Integer>> ctPath) {
-        graph.getNode(Integer.toString(startNode + 1)).setAttribute("ui.class", "algo2");
+        switch (nodeStyle) {
+            case 0 -> graph.getNode(Integer.toString(startNode + 1)).setAttribute("ui.class", "defaultAlgo2");
+            case 1 -> graph.getNode(Integer.toString(startNode + 1)).setAttribute("ui.class", "Node1Algo2");
+            case 2 -> graph.getNode(Integer.toString(startNode + 1)).setAttribute("ui.class", "Node2Algo2");
+        }
+
 
         if (ctPath.get(startNode) == null) {
             return;
         }
 
         for (Integer value: ctPath.get(startNode)) {
-            graph.getNode(Integer.toString(startNode + 1)).getEdgeBetween(Integer.toString(value + 1)).setAttribute("ui.class", "algo1");
+            switch (edgeStyle) {
+                case 0 -> graph.getNode(Integer.toString(startNode + 1)).getEdgeBetween(Integer.toString(value + 1)).setAttribute("ui.class", "defaultAlgo1");
+                case 1 -> graph.getNode(Integer.toString(startNode + 1)).getEdgeBetween(Integer.toString(value + 1)).setAttribute("ui.class", "Node1Algo1");
+                case 2 -> graph.getNode(Integer.toString(startNode + 1)).getEdgeBetween(Integer.toString(value + 1)).setAttribute("ui.class", "Node2Algo1");
+            }
             renderPathDFS(value, ctPath);
         }
     }
 
     private void renderPathBFS(Map<Integer, ArrayList<Integer>> ctPath) {
         for (Integer key: ctPath.keySet()) {
-            graph.getNode(Integer.toString(key + 1)).setAttribute("ui.class", "algo2");
+            switch (nodeStyle) {
+                case 0 -> graph.getNode(Integer.toString(key + 1)).setAttribute("ui.class", "defaultAlgo2");
+                case 1 -> graph.getNode(Integer.toString(key + 1)).setAttribute("ui.class", "Node1Algo2");
+                case 2 -> graph.getNode(Integer.toString(key + 1)).setAttribute("ui.class", "Node2Algo2");
+            }
+
             for (Integer value: ctPath.get(key)) {
-                graph.getNode(Integer.toString(key + 1)).getEdgeBetween(Integer.toString(value + 1)).setAttribute("ui.class", "algo1");
-                graph.getNode(Integer.toString(value + 1)).setAttribute("ui.class", "algo2");
+                switch (edgeStyle) {
+                    case 0 -> graph.getNode(Integer.toString(key + 1)).getEdgeBetween(Integer.toString(value + 1)).setAttribute("ui.class", "defaultAlgo1");
+                    case 1 -> graph.getNode(Integer.toString(key + 1)).getEdgeBetween(Integer.toString(value + 1)).setAttribute("ui.class", "Edge1Algo1");
+                    case 2 -> graph.getNode(Integer.toString(key + 1)).getEdgeBetween(Integer.toString(value + 1)).setAttribute("ui.class", "Edge2Algo1");
+                }
+
+                switch (nodeStyle) {
+                    case 0 -> graph.getNode(Integer.toString(value + 1)).setAttribute("ui.class", "defaultAlgo2");
+                    case 1 -> graph.getNode(Integer.toString(value + 1)).setAttribute("ui.class", "Node1Algo2");
+                    case 2 -> graph.getNode(Integer.toString(value + 1)).setAttribute("ui.class", "Node2Algo2");
+                }
+
             }
         }
     }
 
     private void renderPathLine(Path path) {
         if (path == null) {
-            graph.nodes().forEach(e -> e.setAttribute("ui.class", "default"));
-            graph.edges().forEach(e -> e.setAttribute("ui.class", "default"));
+            resetGraph();
             return;
         }
 
-        graph.nodes().forEach(e -> e.setAttribute("ui.class", "algo3"));
-        graph.edges().forEach(e -> e.setAttribute("ui.class", "algo2"));
-        ArrayList<Integer> render = path.getPath();
-        graph.getNode(render.get(0)).setAttribute("ui.class", "algo1");
-        for (int i = 1; i < render.size(); i++) {
-            graph.getNode(render.get(i - 1)).getEdgeBetween(render.get(i)).setAttribute("ui.class", "algo1");
-            graph.getNode(render.get(i)).setAttribute("ui.class", "algo2");
+        switch (nodeStyle) {
+            case 0 -> graph.nodes().forEach(e -> e.setAttribute("ui.class", "defaultAlgo3"));
+            case 1 -> graph.nodes().forEach(e -> e.setAttribute("ui.class", "Node1Algo3"));
+            case 2 -> graph.nodes().forEach(e -> e.setAttribute("ui.class", "Node2Algo3"));
         }
-        graph.getNode(render.get(render.size() - 1)).setAttribute("ui.class", "algo1");
+        switch (edgeStyle) {
+            case 0 -> graph.edges().forEach(e -> e.setAttribute("ui.class", "defaultAlgo2"));
+            case 1 -> graph.edges().forEach(e -> e.setAttribute("ui.class", "Edge1Algo2"));
+            case 2 -> graph.edges().forEach(e -> e.setAttribute("ui.class", "Edge2Algo2"));
+        }
+
+
+        ArrayList<Integer> render = path.getPath();
+        switch (nodeStyle) {
+            case 0 -> graph.getNode(render.get(0)).setAttribute("ui.class", "defaultAlgo1");
+            case 1 -> graph.getNode(render.get(0)).setAttribute("ui.class", "Node1Algo1");
+            case 2 -> graph.getNode(render.get(0)).setAttribute("ui.class", "Node2Algo1");
+        }
+
+        for (int i = 1; i < render.size(); i++) {
+            switch (edgeStyle) {
+                case 0 -> graph.getNode(render.get(i - 1)).getEdgeBetween(render.get(i)).setAttribute("ui.class", "defaultAlgo1");
+                case 1 -> graph.getNode(render.get(i - 1)).getEdgeBetween(render.get(i)).setAttribute("ui.class", "Edge1Algo1");
+                case 2 -> graph.getNode(render.get(i - 1)).getEdgeBetween(render.get(i)).setAttribute("ui.class", "Edge2Algo1");
+            }
+            switch (nodeStyle) {
+                case 0 -> graph.getNode(render.get(i)).setAttribute("ui.class", "defaultAlgo2");
+                case 1 -> graph.getNode(render.get(i)).setAttribute("ui.class", "Node1Algo2");
+                case 2 -> graph.getNode(render.get(i)).setAttribute("ui.class", "Node2Algo2");
+            }
+
+        }
+
+        switch (nodeStyle) {
+            case 0 -> graph.getNode(render.get(render.size() - 1)).setAttribute("ui.class", "defaultAlgo1");
+            case 1 -> graph.getNode(render.get(render.size() - 1)).setAttribute("ui.class", "Node1Algo1");
+            case 2 -> graph.getNode(render.get(render.size() - 1)).setAttribute("ui.class", "Node2Algo1");
+        }
+    }
+
+    private void resetGraph() {
+        switch (nodeStyle) {
+            case 0 -> graph.nodes().forEach(e -> e.setAttribute("ui.class", "default"));
+            case 1 -> graph.nodes().forEach(e -> e.setAttribute("ui.class", "Node1"));
+            case 2 -> graph.nodes().forEach(e -> e.setAttribute("ui.class", "Node2"));
+        }
+
+        switch (edgeStyle) {
+            case 0 -> graph.edges().forEach(e -> e.setAttribute("ui.class", "default"));
+            case 1 -> graph.edges().forEach(e -> e.setAttribute("ui.class", "Edge1"));
+            case 2 -> graph.edges().forEach(e -> e.setAttribute("ui.class", "Edge2"));
+        }
     }
 }
